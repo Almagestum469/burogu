@@ -9,7 +9,7 @@ const BlogSchema = new mongoose.Schema({
     author: { type: String, default: 'Me' },
     body: String,
     comments: [{ body: String, date: Date }],
-    date: { type: Date, default: Date.now },
+    date: { type: Date, default: Date.now() },
     meta: {
         tag: { type: [String], default: ['Uncategorized'] },
         hidden: { type: Boolean, default: false },

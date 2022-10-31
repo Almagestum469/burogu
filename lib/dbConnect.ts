@@ -21,11 +21,11 @@ if (!cached) {
 }
 
 async function dbConnect() {
-  if (cached.conn) {
-    return cached.conn
+  if (cached.conn && cached.bucket) {
+    return [cached.conn, cached.bucket]
   }
 
-  if (!cached.promise) {
+  if (!cached.promise || !cached.bucket) {
     const opts = {
       bufferCommands: false,
     }
@@ -40,8 +40,6 @@ async function dbConnect() {
     })
   }
 
-
-
   try {
     cached.conn = await cached.promise
   } catch (e) {
@@ -49,7 +47,7 @@ async function dbConnect() {
     throw e
   }
 
-  return cached.conn
+  return [cached.conn, cached.bucket]
 }
 
 export default dbConnect
